@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "OXID eShop Log Watcher for vt-devutils module",
+  "description": "chrome extension for log monitoring and stuff",
+  "version": "0.0.1",
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": false,
+    "open_in_tab": true
+  },
+  "background": {
+    "scripts": [ "scripts/background.js" ],
+    "persistent": false
+  },
+  "browser_action": { "default_title": "Bestellannahme öffnen" },
+  "icons": {
+    "32": "icons/32.png",
+    "48": "icons/48.png"
+  },
+  "permissions": [
+    "alarms",
+    "tabs",
+    "*://*/*",
+    "notifications",
+    "storage"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdnjs.cloudflare.com/; object-src 'self'"
+}

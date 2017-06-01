@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.11/lumx.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <title>Log Monitoring</title>
+    <style>
+        #shopurls { width: 100%; }
+    </style>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<div flex-container="row" class="p+">
+    <div flex-item="8">
+        <lx-tabs lx-color="green" lx-layout="inline" ng-show="exceptions !== {}">
+            <lx-tab ng-repeat="(shop,log) in exceptions" lx-label="{{shop}}">
+                <ul class="p list">
+                    <li class="list-row list-row--has-separator" ng-repeat="e in log">
+                        <div class="list-row__content">
+                            <span class="display-block"><b>{{e.timestamp}} :: {{e.subheader}}</b></span>
+                            <pre class="display-block fs-body-1 tc-black-2">{{e.text}}</pre>
+                        </div>
+                    </li>
+                </ul>
+            </lx-tab>
+        </lx-tabs>
+        <pre>{{exceptions|json}}</pre>
+    </div>
+    <div flex-item="4" class="p+">
+        Shop URLs + access tokens:
+        <ul class="list m++">
+            <li class="list-row list-row--has-separator" ng-repeat="(s,t) in shops">
+                <div class="list-row__primary">
+                    <lx-button lx-type="icon" lx-size="xl" lx-color="cyan" lx-tooltip="get log" ng-click="fetchExceptions(s,t);">
+                        <i class="mdi mdi-download"></i>
+                    </lx-button>
+                </div>
+                <div class="list-row__content">
+                    <span class="display-block"><b>{{s}}</b></span>
+                    <span class="display-block fs-body-1 tc-black-2">{{t}}</span>
+                </div>
+                <div class="list-row__secondary">
+                    <lx-button lx-type="icon" lx-size="xl" lx-color="red" lx-tooltip="remove" ng-click="removeShop(s);">
+                        <i class="mdi mdi-close-circle-outline"></i>
+                    </lx-button>
+                </div>
+            </li>
+        </ul>
+        <div flex-container="row">
+            <lx-text-field lx-label="new Shop URL" lx-allow-clear="true" flex-item="6">
+                <input type="text" ng-model="new.shop">
+            </lx-text-field>
+            <lx-text-field lx-label="Token" lx-allow-clear="true" flex-item="5">
+                <input type="text" ng-model="new.token">
+            </lx-text-field>
+            <div class="text-field">
+                <lx-button lx-color="green" ng-click="addShop();">add</lx-button>
+            </div>
+        </div>
+        <!-- <lx-button lx-color="green" ng-click="saveShops();">save</lx-button>
+        <lx-button lx-color="blue" ng-click="loadShops();">load</lx-button> -->
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.11/lumx.min.js"></script>
+<script src="scripts/options.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 var logs = {};
 
-function fetchLog(_shop,_token,_callback)
+function getLogs(_shop,_token,_callback)
 {
     console.log("fetching logs from url "+_shop);
     if(_shop.indexOf('http') !== 0) _shop = 'http://'+_shop;
@@ -85,19 +85,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
     if (alarm && alarm.name == 'party hard!') partyHard();
 });*/
 
-//chrome.runtime.onInstalled.addListener(function () {
-chrome.runtime.onStartup.addListener(function()
-{
-    console.log("start");
-    chrome.browserAction.onClicked.addListener(function (tab) {
-        chrome.runtime.openOptionsPage();
-    });
-
-    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        console.log(request);
-        if(request.hasOwnProperty("fetchLog")) {
-            fetchLog(request.fetchLog.shop,request.fetchLog.token,sendResponse);
-            return true;
-        }
-    });
+chrome.browserAction.onClicked.addListener(function (tab) {
+    chrome.runtime.openOptionsPage();
 });
+

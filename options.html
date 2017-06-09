@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.11/lumx.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.13/lumx.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <title>Log Monitoring</title>
     <style>
@@ -14,8 +14,8 @@
 <body ng-app="app" ng-controller="ctrl">
 <div flex-container="row" class="p+">
     <div flex-item="8">
-        <lx-tabs lx-color="green" lx-layout="inline" ng-show="exceptions !== {}">
-            <lx-tab ng-repeat="(shop,log) in exceptions" lx-label="{{shop}}">
+        <lx-tabs lx-color="green" lx-layout="inline" ng-if="logs">
+            <lx-tab ng-repeat="(_s,shop) in logs" lx-label="{{shop}}">
                 <ul class="p list">
                     <li class="list-row list-row--has-separator" ng-repeat="e in log">
                         <div class="list-row__content">
@@ -26,14 +26,15 @@
                 </ul>
             </lx-tab>
         </lx-tabs>
-        <pre>{{exceptions|json}}</pre>
+        <pre>{{shops|json}}</pre>
+        <pre>{{logs|json}}</pre>
     </div>
     <div flex-item="4" class="p+">
         Shop URLs + access tokens:
         <ul class="list m++">
             <li class="list-row list-row--has-separator" ng-repeat="(s,t) in shops">
                 <div class="list-row__primary">
-                    <lx-button lx-type="icon" lx-size="xl" lx-color="cyan" lx-tooltip="get log" ng-click="fetchExceptions(s,t);">
+                    <lx-button lx-type="icon" lx-size="xl" lx-color="cyan" lx-tooltip="get log" ng-click="getLogs(s,t);">
                         <i class="mdi mdi-download"></i>
                     </lx-button>
                 </div>
@@ -59,6 +60,31 @@
                 <lx-button lx-color="green" ng-click="addShop();">add</lx-button>
             </div>
         </div>
+        <div flex-container="row" class="p+">
+            <div flex-item="5">
+                Logs automatisch abrufen?
+                <pre>{{config|json}}</pre>
+            </div>
+            <div flex-item>
+            <lx-radio-group>
+                <lx-radio-button name="fetchtimer" ng-value="1" ng-model="config.fetchtimer" lx-color="red" ng-change="saveConfig()">
+                    <lx-radio-button-label>1 Min</lx-radio-button-label>
+                </lx-radio-button>
+                <lx-radio-button name="fetchtimer" ng-value="3" ng-model="config.fetchtimer" lx-color="orange" ng-change="saveConfig()">
+                    <lx-radio-button-label>3 Min</lx-radio-button-label>
+                </lx-radio-button>
+                <lx-radio-button name="fetchtimer" ng-value="5" ng-model="config.fetchtimer" lx-color="lime" ng-change="saveConfig()">
+                    <lx-radio-button-label>5 Min</lx-radio-button-label>
+                </lx-radio-button>
+                <lx-radio-button name="fetchtimer" ng-value="10" ng-model="config.fetchtimer" lx-color="green" ng-change="saveConfig()">
+                    <lx-radio-button-label>10 Min</lx-radio-button-label>
+                </lx-radio-button>
+                <lx-radio-button name="fetchtimer" ng-value="0" ng-model="config.fetchtimer" lx-color="blue" ng-change="saveConfig()">
+                    <lx-radio-button-label>aus</lx-radio-button-label>
+                </lx-radio-button>
+            </lx-radio-group>
+        </div>
+        </div>
         <!-- <lx-button lx-color="green" ng-click="saveShops();">save</lx-button>
         <lx-button lx-color="blue" ng-click="loadShops();">load</lx-button> -->
 
@@ -66,7 +92,8 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.11/lumx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lumx/1.5.13/lumx.min.js"></script>
 <script src="scripts/options.js"></script>
 </body>
 </html>

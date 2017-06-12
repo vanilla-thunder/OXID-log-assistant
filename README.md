@@ -1,7 +1,7 @@
 # OXID-log-assistant
 Fetch and view logs from your oxid eshops, also get notification on new exceptions
 
-(credits to Kai N. for plugin name)
+(credits to [@Crease29](https://github.com/Crease29) for plugin name)
 
 ## functions
 - view last 10 exceptions and 20 webserver errors for multple shops

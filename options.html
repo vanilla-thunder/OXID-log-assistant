@@ -15,19 +15,35 @@
 <div flex-container="row" class="p+">
     <div flex-item="8">
         <lx-tabs lx-color="green" lx-layout="inline" ng-if="logs">
-            <lx-tab ng-repeat="(_s,shop) in logs" lx-label="{{shop}}">
-                <ul class="p list">
-                    <li class="list-row list-row--has-separator" ng-repeat="e in log">
-                        <div class="list-row__content">
-                            <span class="display-block"><b>{{e.timestamp}} :: {{e.subheader}}</b></span>
-                            <pre class="display-block fs-body-1 tc-black-2">{{e.text}}</pre>
-                        </div>
-                    </li>
-                </ul>
+            <lx-tab ng-repeat="(_s,shop) in logs" lx-label="{{_s}}">
+                <div ng-if)="shop.exceptions">
+                    <h1>exception log: {{ shop.exceptions.time  }}</h1>
+                    <ul class="p list">
+                        <li class="list-row list-row--has-separator" ng-repeat="e in shop.exceptions.log">
+                            <div class="list-row__content">
+                                <div class="display-block">
+                                    <lx-switch class="float-left" ng-model="e.show" lx-color="green"></lx-switch>
+                                    <b class="p+ pt++">{{e.timestamp}} :: {{e.subheader}}</b>
+
+                                </div>
+                                <pre ng-show="e.show" class="display-block fs-body-1 tc-black-2">{{e.text}}</pre>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-if)="shop.errors">
+                    <h1>error log: {{ shop.errors.time  }}</h1>
+                    <ul class="p list">
+                        <li class="list-row list-row--has-separator" ng-repeat="e in shop.errors.log">
+                            <div class="list-row__content">
+                                <span class="display-block"><b>{{e.date}} :: {{e.type}}</b></span>
+                                <pre class="display-block fs-body-1 tc-black-2">{{e.msg}}</pre>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </lx-tab>
         </lx-tabs>
-        <pre>{{shops|json}}</pre>
-        <pre>{{logs|json}}</pre>
     </div>
     <div flex-item="4" class="p+">
         Shop URLs + access tokens:
@@ -60,10 +76,10 @@
                 <lx-button lx-color="green" ng-click="addShop();">add</lx-button>
             </div>
         </div>
+        <lx-progress lx-type="linear" lx-color="teal" lx-value="{{ countdown.progress }}"></lx-progress>
         <div flex-container="row" class="p+">
             <div flex-item="5">
                 Logs automatisch abrufen?
-                <pre>{{config|json}}</pre>
             </div>
             <div flex-item>
             <lx-radio-group>

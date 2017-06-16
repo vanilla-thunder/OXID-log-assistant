@@ -17,7 +17,10 @@
         <lx-tabs lx-color="green" lx-layout="inline" ng-if="logs">
             <lx-tab ng-repeat="(_s,shop) in logs" lx-label="{{_s}}">
                 <div ng-if)="shop.exceptions">
-                    <h1>exception log: {{ shop.exceptions.time  }}</h1>
+                    <h1>exception log <small ng-if="shop.exceptions.status == 'ok'">({{ 'total:' + shop.exceptions.total }} // {{ shop.exceptions.time  }})</small></h1>
+                    <div class="bgc-red-A700 tc-white p+" ng-if="shop.exceptions.status !== 'ok'">
+                        {{ shop.exceptions.status }}
+                    </div>
                     <ul class="p list">
                         <li class="list-row list-row--has-separator" ng-repeat="e in shop.exceptions.log">
                             <div class="list-row__content">
@@ -32,7 +35,10 @@
                     </ul>
                 </div>
                 <div ng-if)="shop.errors">
-                    <h1>error log: {{ shop.errors.time  }}</h1>
+                    <h1>error log <small ng-if="shop.errors.status == 'ok'">({{ 'total:' + shop.errors.total }} // {{ shop.errors.time  }})</small></h1>
+                    <div class="bgc-red-A700 tc-white p+" ng-if="shop.errors.status !== 'ok'">
+                        {{ shop.errors.status }}
+                    </div>
                     <ul class="p list">
                         <li class="list-row list-row--has-separator" ng-repeat="e in shop.errors.log">
                             <div class="list-row__content">

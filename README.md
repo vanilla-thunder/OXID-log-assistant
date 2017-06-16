@@ -16,4 +16,4 @@ Fetch and view logs from your oxid eshops, also get notification on new exceptio
 - automatically fetch logs every 1 / 3 / 5 / 10 minutes
 - get notification on new exception or error
 
-![alt text](oxid-log-assistant.jpg)
+![alt text](log-assistant.png)
